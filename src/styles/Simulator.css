@@ -1,0 +1,180 @@
+/* Estilos da Página de Simulação (Aba 3) */
+.simulation-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .simulation-intro h2 {
+    margin: 0 0 6px 0;
+    font-size: 1.4rem;
+  }
+  
+  .simulation-intro p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+  
+  .simulation-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  
+  @media (max-width: 850px) {
+    .simulation-content-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .sim-form-card, .sim-result-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 24px;
+    border-radius: 8px;
+  }
+  
+  .sim-form-card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+  }
+  
+  .input-field-group {
+    margin-bottom: 18px;
+  }
+  
+  .input-field-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+  
+  .input-field-group input, .input-field-group select {
+    width: 100%;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 10px;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+  
+  .field-hint {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+  
+  .button-toggle-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .btn-choice {
+    flex: 1;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .btn-choice.active {
+    background-color: var(--accent-red);
+    color: #fff;
+    border-color: var(--accent-red);
+  }
+  
+  /* Card de Resultado */
+  .sim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .ai-icon {
+    color: var(--accent-red);
+  }
+  
+  .sim-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  
+  .gauge-display-container {
+    text-align: center;
+    background-color: var(--bg-main);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .gauge-caption {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+  
+  .gauge-percentage-number {
+    font-size: 3.2rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin: 8px 0;
+  }
+  
+  .risk-pill {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  
+  .risk-pill.baixo-risco { background-color: rgba(0, 230, 118, 0.2); color: var(--accent-green); }
+  .risk-pill.risco-moderado { background-color: rgba(255, 179, 0, 0.2); color: var(--accent-yellow); }
+  .risk-pill.alto-risco { background-color: rgba(255, 70, 85, 0.2); color: var(--accent-red); }
+  
+  .action-recommendation-box {
+    background-color: var(--bg-main);
+    border-left: 4px solid var(--accent-red);
+    padding: 16px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+  
+  .box-sub {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+  
+  .action-title {
+    margin: 4px 0 10px 0;
+    color: var(--accent-red);
+    font-size: 1.2rem;
+  }
+  
+  .tactical-p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .next-round-projection {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+  }

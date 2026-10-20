@@ -1,0 +1,20 @@
+.tab-navigation{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tab-btn{
+    margin-inline: 4px;
+    border-radius: 10px;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    background-color: #1F2326;
+    color:lightgray;
+}
+
+.active{
+    color: #FF4655;
+}

@@ -1,0 +1,136 @@
+/* Estilos para a Aba 2: Round a Round */
+.round-selector-container {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .selector-title {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+  
+  .round-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+    gap: 8px;
+  }
+  
+  .btn-round {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 8px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.85rem;
+  }
+  
+  .btn-round.active {
+    background-color: var(--accent-red);
+    border-color: var(--accent-red);
+    color: #fff;
+  }
+  
+  .round-summary-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .summary-badge-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  
+  .result-tag {
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+  
+  .result-tag.victory { background-color: rgba(0, 230, 118, 0.2); color: var(--accent-green); }
+  .result-tag.defeat { background-color: rgba(255, 70, 85, 0.2); color: var(--accent-red); }
+  
+  .buy-tag {
+    background-color: var(--bg-main);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+  }
+  
+  .summary-metrics-row {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .summary-item .label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+  
+  .summary-item .value {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+  
+  .summary-item .value.waste {
+    color: var(--accent-red);
+  }
+  
+  /* Tabela de Jogadores */
+  .players-table-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .table-wrapper {
+    overflow-x: auto;
+  }
+  
+  .round-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .round-table th, .round-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+  }
+  
+  .round-table th {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+  }
+  
+  .player-cell {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .agent-name { font-weight: bold; }
+  .player-sub { font-size: 0.75rem; color: var(--text-secondary); }
+  
+  .status-dead { color: var(--accent-red); display: flex; align-items: center; gap: 4px; }
+  .status-alive { color: var(--accent-green); }
+  
+  .highlight-waste {
+    color: var(--accent-red);
+    font-weight: bold;
+  }
