@@ -18,14 +18,14 @@
   }
   
   .dashboard-container {
-    width: 90%;
-    height: 100%;
-    margin: 0 auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    gap: 8px;
+    width: 100%;
+    min-height: 100vh;
+    padding: 24px 32px; /* Espaçamento interno confortável para as laterais */
+    margin: 0; /* Remova margin: auto se houver */
+    max-width: none !important; /* Remove qualquer limitação de largura máxima */
+    border: none !important; /* Remove a borda branca/cinza clara ao redor */
+    box-shadow: none !important;
+    background-color: #0d1117; /* Garante que o fundo seja continuo */
   }
   
   /* Header */

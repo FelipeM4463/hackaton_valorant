@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles/Dashboard.css';
 import './styles/R2R.css';
 import './styles/Simulator.css';
@@ -9,34 +9,40 @@ import { EconomyChart } from './components/EconomyChart';
 import { RoundSelector } from './components/RoundSelector';
 import { RoundDetailView } from './components/RoundDetailView';
 import { SimulationView } from './components/SimulationView';
-import { calculateMetrics, classifyBuyType, generateDetailedRoundSample } from './utils/economyUtils';
+import { calculateMetrics, generateDetailedRoundSample } from './utils/economyUtils';
 import { DollarSign, TrendingUp, ShieldAlert, BarChart2, Layers, Cpu } from 'lucide-react';
+import { fetchMatchData } from './services/api';
 import type { RoundData } from './types/match';
 
-const sampleRounds: RoundData[] = Array.from({ length: 20 }, (_, i) => {
-  const loadout = Math.floor(Math.random() * 22000) + 4000;
-  const won = Math.random() > (loadout < 12000 ? 0.7 : 0.3);
-  return {
-    roundNum: i + 1,
-    winningTeam: won ? 'Time Alpha' : 'Time Beta',
-    teamSpent: Math.floor(loadout * 0.9),
-    teamLoadoutValue: loadout,
-    buyType: classifyBuyType(loadout),
-    won,
-  };
-});
-
 export const App: React.FC = () => {
-  const [selectedTeam, setSelectedTeam] = useState<string>('Time Alpha');
+  // Ajustado para padronizar com os times presentes no JSON: Red e Blue
+  const [selectedTeam, setSelectedTeam] = useState<string>('Red');
   const [activeTab, setActiveTab] = useState<'overview' | 'roundByRound' | 'simulation'>('overview');
   const [selectedRound, setSelectedRound] = useState<number>(1);
 
-  const metrics = calculateMetrics(sampleRounds);
+  const [rounds, setRounds] = useState<RoundData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const metrics = calculateMetrics(rounds);
   const currentDetailedRound = generateDetailedRoundSample(selectedRound);
+
+  useEffect(() => {
+    setLoading(true);
+    fetchMatchData(selectedTeam)
+      .then((data) => {
+        setRounds(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Erro na comunicação com a API:", err);
+        setLoading(false);
+      });
+  }, [selectedTeam]);
 
   return (
     <div className="dashboard-container">
-      <Header selectedTeam={selectedTeam} onSelectTeam={setSelectedTeam} />
+      {/* Seletor de time limitado aos dois times reais do dataset: Red e Blue */}
+      <Header selectedTeam={selectedTeam} onSelectTeam={setSelectedTeam} teams={['Red', 'Blue']} />
 
       {/* Navegação entre as 3 Abas */}
       <div className="tab-navigation">
@@ -70,8 +76,12 @@ export const App: React.FC = () => {
             <KpiCard title="Gasto Médio / Round" value={`$${metrics.avgSpent.toLocaleString()}`} icon={<DollarSign />} />
           </div>
 
-          <div className="main-content-grid">
-            <EconomyChart data={sampleRounds} />
+          <div className="dashboard-container">
+            {loading ? (
+              <div style={{ color: 'white', padding: '20px' }}>Carregando dados financeiros do time {selectedTeam}...</div>
+            ) : (
+              <EconomyChart data={rounds} />
+            )}
           </div>
         </>
       )}
@@ -80,7 +90,7 @@ export const App: React.FC = () => {
       {activeTab === 'roundByRound' && (
         <>
           <RoundSelector
-            totalRounds={sampleRounds.length}
+            totalRounds={rounds.length || 19}
             currentRound={selectedRound}
             onSelectRound={setSelectedRound}
           />

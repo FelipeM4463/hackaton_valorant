@@ -6,10 +6,9 @@ export interface PlayerEconomy {
 export interface RoundData {
   roundNum: number;
   winningTeam: string;
-  teamSpent: number;
-  teamLoadoutValue: number;
-  buyType: 'Eco' | 'Force Buy' | 'Full Buy';
   won: boolean;
+  totalLoadoutValue: number;
+  buyType: 'Eco' | 'Force Buy' | 'Full Buy';
 }
 
 export interface EconomyMetrics {

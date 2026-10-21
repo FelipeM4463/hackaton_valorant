@@ -1,7 +1,23 @@
+/* Zerar margens e paddings padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body, #root {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #0d1117; /* Cor de fundo escura do seu aplicativo */
+    color: #ffffff;
+    overflow-x: hidden;
+  }
+
 .tab-navigation{
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 .tab-btn{

@@ -16,11 +16,13 @@ export const calculateMetrics = (rounds: RoundData[]): EconomyMetrics => {
   const getWinRate = (type: 'Eco' | 'Force Buy' | 'Full Buy') => {
     const filtered = rounds.filter((r) => r.buyType === type);
     if (filtered.length === 0) return 0;
-    const wins = filtered.filter((r) => r.won).length;
-    return Math.round((wins / filtered.length) * 100);
+    
+    return Math.round((filtered.length / rounds.length) * 100);
   };
 
-  const totalSpent = rounds.reduce((acc, r) => acc + r.teamSpent, 0);
+  let totalSpent = 0;
+
+  rounds.forEach((round)=> totalSpent+=round.totalLoadoutValue)
 
   return {
     fullBuyWinRate: getWinRate('Full Buy'),
