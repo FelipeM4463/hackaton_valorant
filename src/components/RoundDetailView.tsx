@@ -1,27 +1,29 @@
 import React from 'react';
-import type { DetailedRoundData } from '../types/match';
+import type { DetailedRoundData, RoundData } from '../types/match';
 import { DollarSign, Skull, Shield, Crosshair, AlertOctagon } from 'lucide-react';
 
 interface RoundDetailViewProps {
+  general: RoundData[];
   round: DetailedRoundData;
+  number: number;
 }
 
-export const RoundDetailView: React.FC<RoundDetailViewProps> = ({ round }) => {
+export const RoundDetailView: React.FC<RoundDetailViewProps> = ({number, general, round }) => {
   return (
     <div className="round-detail-container">
       {/* Resumo Superior do Round */}
       <div className="round-summary-card">
         <div className="summary-badge-group">
-          <span className={`result-tag ${round.won ? 'victory' : 'defeat'}`}>
-            {round.won ? 'VITÓRIA DO ROUND' : 'DERROTA DO ROUND'}
+          <span className={`result-tag ${general[number].won ? 'victory' : 'defeat'}`}>
+            {general[number].won ? 'VITÓRIA DO ROUND' : 'DERROTA DO ROUND'}
           </span>
-          <span className="buy-tag">{round.buyType}</span>
+          <span className="buy-tag">{general[number].buyType}</span>
         </div>
 
         <div className="summary-metrics-row">
           <div className="summary-item">
             <span className="label">Investimento Total:</span>
-            <span className="value">${round.teamSpent.toLocaleString()}</span>
+            <span className="value">${general[number].totalLoadoutValue.toLocaleString()}</span>
           </div>
           <div className="summary-item">
             <span className="label">Desperdício em Mortes:</span>

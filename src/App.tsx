@@ -94,7 +94,7 @@ export const App: React.FC = () => {
             currentRound={selectedRound}
             onSelectRound={setSelectedRound}
           />
-          <RoundDetailView round={currentDetailedRound} />
+          <RoundDetailView number = {selectedRound} general = {rounds} round={currentDetailedRound} />
         </>
       )}
 

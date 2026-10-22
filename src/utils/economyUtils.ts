@@ -96,7 +96,7 @@ export const generateDetailedRoundSample = (roundNum: number): DetailedRoundData
       unTradedDeath: died && kills === 0,
     };
   });
-
+  
   const creditWasteTotal = players.reduce((sum, p) => sum + calculatePlayerCreditWaste(p), 0);
 
   return {
@@ -112,6 +112,48 @@ export const generateDetailedRoundSample = (roundNum: number): DetailedRoundData
     creditWasteTotal,
   };
 };
+
+
+export const generateDetailedRound = (roundNum: number): DetailedRoundData => {
+  const agents = ['Jett', 'Reyna', 'Sova', 'Omen', 'Killjoy'];
+  const weapons = ['Vandal', 'Phantom', 'Spectre', 'Ghost', 'Sheriff', 'Operator'];
+
+  const players: PlayerRoundDetail[] = agents.map((agent, index) => {
+    const died = Math.random() > 0.5;
+    const kills = Math.floor(Math.random() * 3);
+    const spentInRound = Math.floor(Math.random() * 3500) + 800;
+    
+    return {
+      playerId: `p${index + 1}`,
+      playerName: `Jogador ${index + 1}`,
+      agent,
+      weaponPurchased: weapons[Math.floor(Math.random() * weapons.length)],
+      shieldPurchased: spentInRound > 2000 ? 'Pesado' : spentInRound > 1000 ? 'Leve' : 'Nenhum',
+      spentInRound,
+      abilitiesUsed: Math.floor(Math.random() * 4),
+      kills,
+      died,
+      unTradedDeath: died && kills === 0,
+    };
+  });
+  
+  const creditWasteTotal = players.reduce((sum, p) => sum + calculatePlayerCreditWaste(p), 0);
+
+  return {
+    roundNum,
+    winningTeam: roundNum % 2 === 0 ? 'Time Alpha' : 'Time Beta',
+    teamSpent: players.reduce((sum, p) => sum + p.spentInRound, 0),
+    teamLoadoutValue: players.reduce((sum, p) => sum + p.spentInRound, 0) + 2000,
+    buyType: roundNum % 3 === 0 ? 'Eco' : roundNum % 2 === 0 ? 'Force Buy' : 'Full Buy',
+    won: roundNum % 2 === 0,
+    players,
+    spikePlanted: true,
+    spikeDefused: roundNum % 4 === 0,
+    creditWasteTotal,
+  };
+};
+
+
 
 // Adicione esta função ao final de src/utils/economyUtils.ts
 import type { SimulationInput, SimulationResult } from '../types/match';
