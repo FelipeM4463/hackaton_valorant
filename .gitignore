@@ -23,3 +23,12 @@ dist-ssr
 *.sln
 *.sw?
 .aider*
+
+# Python / local secrets
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+!.env.example

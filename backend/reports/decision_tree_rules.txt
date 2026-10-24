@@ -1,0 +1,74 @@
+ÁRVORE DE DECISÃO — VALORANT (modelo explicável)
+=================================================
+
+Objetivo: explicar padrões históricos associados a rounds concluídos.
+Uso: análise pós-partida; não fornece previsões ou recomendações em tempo real.
+Divisão: seleção por validação cronológica dentro do treino; teste final em partidas mais recentes.
+Nenhum kill/dano/resultado final do round é usado como feature.
+
+MODELO PRINCIPAL SELECIONADO NA VALIDAÇÃO: Extra Trees
+Acurácia no teste final do modelo principal: 0.6079
+Acurácia da árvore explicável no teste final: 0.6097
+Partidas de treino=268; partidas de teste=68.
+
+REGRAS DA ÁRVORE EXPLICÁVEL
+---------------------------
+|--- loadout_ratio <= 0.42
+|   |--- loadout_ratio <= 0.26
+|   |   |--- team_score_before <= 6.50
+|   |   |   |--- team_loadout_per_player <= 505.00
+|   |   |   |   |--- weights: [211.00, 13.00] class: 0
+|   |   |   |--- team_loadout_per_player >  505.00
+|   |   |   |   |--- weights: [373.00, 51.00] class: 0
+|   |   |--- team_score_before >  6.50
+|   |   |   |--- team_loadout_per_player <= 745.00
+|   |   |   |   |--- weights: [65.00, 14.00] class: 0
+|   |   |   |--- team_loadout_per_player >  745.00
+|   |   |   |   |--- weights: [81.00, 25.00] class: 0
+|   |--- loadout_ratio >  0.26
+|   |   |--- score_diff_before <= -0.50
+|   |   |   |--- round_number <= 16.50
+|   |   |   |   |--- weights: [518.00, 128.00] class: 0
+|   |   |   |--- round_number >  16.50
+|   |   |   |   |--- weights: [109.00, 43.00] class: 0
+|   |   |--- score_diff_before >  -0.50
+|   |   |   |--- team_loadout_value <= 13975.00
+|   |   |   |   |--- weights: [189.00, 83.00] class: 0
+|   |   |   |--- team_loadout_value >  13975.00
+|   |   |   |   |--- weights: [45.00, 44.00] class: 0
+|--- loadout_ratio >  0.42
+|   |--- loadout_ratio <= 0.58
+|   |   |--- score_diff_before <= -0.50
+|   |   |   |--- score_diff_before <= -3.50
+|   |   |   |   |--- weights: [810.00, 475.00] class: 0
+|   |   |   |--- score_diff_before >  -3.50
+|   |   |   |   |--- weights: [766.00, 673.00] class: 0
+|   |   |--- score_diff_before >  -0.50
+|   |   |   |--- score_diff_before <= 3.50
+|   |   |   |   |--- weights: [1148.00, 1241.00] class: 1
+|   |   |   |--- score_diff_before >  3.50
+|   |   |   |   |--- weights: [475.00, 810.00] class: 1
+|   |--- loadout_ratio >  0.58
+|   |   |--- loadout_ratio <= 0.74
+|   |   |   |--- score_diff_before <= 0.50
+|   |   |   |   |--- weights: [127.00, 234.00] class: 1
+|   |   |   |--- score_diff_before >  0.50
+|   |   |   |   |--- weights: [171.00, 627.00] class: 1
+|   |   |--- loadout_ratio >  0.74
+|   |   |   |--- opponent_score_before <= 6.50
+|   |   |   |   |--- weights: [64.00, 584.00] class: 1
+|   |   |   |--- opponent_score_before >  6.50
+|   |   |   |   |--- weights: [39.00, 146.00] class: 1
+
+
+IMPORTÂNCIA DAS VARIÁVEIS DA ÁRVORE EXPLICÁVEL
+----------------------------------------------
+loadout_ratio: 0.8552
+score_diff_before: 0.1273
+team_loadout_value: 0.0055
+team_score_before: 0.0041
+opponent_score_before: 0.0041
+round_number: 0.0020
+team_loadout_per_player: 0.0017
+
+AVISO: associação estatística não prova causalidade e não garante o resultado.

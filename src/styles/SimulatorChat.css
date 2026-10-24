@@ -1,0 +1,605 @@
+/* VALO ECONOMIX — layout do chat local */
+.sim-chat,
+.sim-chat * {
+  box-sizing: border-box;
+}
+
+.sim-chat {
+  position: relative;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--border-color, #2d353e);
+  border-radius: 14px;
+  background: var(--bg-card, #1d2228);
+  color: var(--text-primary, #f3f4f6);
+  text-align: left;
+  font-family: inherit;
+}
+
+.sim-chat-fullpage {
+  height: calc(100vh - 190px);
+  min-height: 540px;
+  max-height: none;
+}
+
+/* Cabeçalho */
+.sim-chat .sim-chat-header {
+  display: flex !important;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border-color, #2d353e);
+  text-align: left;
+}
+
+.sim-chat .sim-chat-heading {
+  display: flex !important;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
+}
+
+.sim-chat .sim-chat-icon,
+.sim-chat .sim-chat-welcome-icon {
+  display: grid !important;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 70, 85, 0.12);
+  color: #ff6572;
+}
+
+.sim-chat .sim-chat-heading-copy {
+  min-width: 0;
+}
+
+.sim-chat .sim-chat-eyebrow {
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 4px;
+  color: #ff6572;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.sim-chat .sim-chat-header h3 {
+  margin: 0;
+  color: var(--text-primary, #f3f4f6);
+  font-size: 1.08rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.sim-chat .sim-chat-header p {
+  margin: 5px 0 0;
+  color: var(--text-secondary, #a4adb8);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.sim-chat .sim-chat-local-badge {
+  display: inline-flex !important;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 11px;
+  border: 1px solid rgba(0, 208, 132, 0.28);
+  border-radius: 999px;
+  background: rgba(0, 208, 132, 0.06);
+  color: #00d084;
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.sim-chat .sim-chat-local-badge > span {
+  display: block;
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #00d084;
+  box-shadow: 0 0 0 3px rgba(0, 208, 132, 0.12);
+}
+
+.sim-chat .sim-chat-local-badge.is-offline {
+  border-color: rgba(255, 70, 85, 0.35);
+  background: rgba(255, 70, 85, 0.06);
+  color: #ff7a85;
+}
+
+.sim-chat .sim-chat-local-badge.is-offline > span {
+  background: #ff4655;
+  box-shadow: 0 0 0 3px rgba(255, 70, 85, 0.12);
+}
+
+/* Área rolável das mensagens */
+.sim-chat .sim-chat-thread {
+  display: flex !important;
+  flex: 1 1 auto !important;
+  flex-direction: column !important;
+  align-items: stretch;
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 24px clamp(16px, 3vw, 38px);
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  text-align: left;
+}
+
+/* Estado inicial e cartões de sugestões */
+.sim-chat .sim-chat-welcome {
+  display: flex !important;
+  flex: 1 0 auto;
+  flex-direction: column !important;
+  justify-content: center;
+  gap: 24px;
+  width: min(100%, 980px);
+  margin: auto;
+  padding: 16px 0 28px;
+  text-align: left !important;
+}
+
+.sim-chat .sim-chat-welcome-top {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+}
+
+.sim-chat .sim-chat-welcome-icon {
+  width: 42px;
+  height: 42px;
+}
+
+.sim-chat .sim-chat-welcome-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left !important;
+}
+
+.sim-chat .sim-chat-welcome-kicker {
+  display: block;
+  margin: 0 0 6px;
+  color: #ff6572;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+}
+
+.sim-chat .sim-chat-welcome-copy h2 {
+  margin: 0 0 8px;
+  color: var(--text-primary, #f3f4f6);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.sim-chat .sim-chat-welcome-copy p {
+  max-width: 800px;
+  margin: 0;
+  color: var(--text-secondary, #a4adb8);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.sim-chat .sim-chat-prompts {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  width: 100% !important;
+  margin: 0;
+}
+
+.sim-chat .sim-chat-prompt {
+  display: flex !important;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100% !important;
+  min-width: 0;
+  min-height: 72px;
+  margin: 0;
+  padding: 15px 16px;
+  border: 1px solid var(--border-color, #303943);
+  border-radius: 10px;
+  background: var(--bg-main, #101820);
+  color: var(--text-secondary, #b2bbc5);
+  text-align: left !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  font: inherit;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.sim-chat .sim-chat-prompt svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: #ff6572;
+}
+
+.sim-chat .sim-chat-prompt span {
+  display: block;
+  min-width: 0;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+}
+
+.sim-chat .sim-chat-prompt:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: rgba(255, 70, 85, 0.55);
+  background: rgba(255, 70, 85, 0.055);
+  color: var(--text-primary, #f3f4f6);
+}
+
+.sim-chat .sim-chat-prompt:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+/* Balões de conversa */
+.sim-chat .sim-chat-message {
+  display: block;
+  width: fit-content;
+  max-width: min(88%, 980px);
+  min-width: 0;
+  margin: 0;
+  padding: 13px 16px;
+  border: 1px solid var(--border-color, #303943);
+  border-radius: 12px;
+  background: var(--bg-main, #101820);
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+.sim-chat .sim-chat-message.user {
+  align-self: flex-end;
+  border-color: rgba(255, 70, 85, 0.28);
+  background: rgba(255, 70, 85, 0.08);
+}
+
+.sim-chat .sim-chat-message.assistant {
+  align-self: flex-start;
+  max-width: min(94%, 1050px);
+}
+
+.sim-chat .sim-chat-message-label {
+  margin: 0 0 7px;
+  color: var(--text-secondary, #a4adb8);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.sim-chat .sim-chat-message.user .sim-chat-message-label {
+  color: #ff6572;
+}
+
+.sim-chat .sim-chat-message > p {
+  margin: 0;
+  color: var(--text-primary, #f3f4f6);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* Markdown devolvido pela IA */
+.sim-chat .sim-chat-markdown {
+  color: var(--text-primary, #f3f4f6);
+  overflow-wrap: anywhere;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  text-align: left;
+}
+
+.sim-chat .sim-chat-markdown p {
+  margin: 0 0 0.8rem;
+  color: inherit;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.sim-chat .sim-chat-markdown p:last-child {
+  margin-bottom: 0;
+}
+
+.sim-chat .sim-chat-markdown h4 {
+  margin: 1rem 0 0.45rem;
+  color: var(--text-primary, #f3f4f6);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.sim-chat .sim-chat-markdown ul,
+.sim-chat .sim-chat-markdown ol {
+  margin: 0.45rem 0 0.9rem;
+  padding-left: 1.5rem;
+  color: var(--text-primary, #f3f4f6);
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.sim-chat .sim-chat-markdown li + li {
+  margin-top: 0.35rem;
+}
+
+.sim-chat .sim-chat-markdown strong {
+  color: var(--text-primary, #f3f4f6);
+  font-weight: 800;
+}
+
+.sim-chat .sim-chat-markdown code {
+  padding: 2px 5px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.92em;
+}
+
+/* Indicador de processamento e erros */
+.sim-chat .sim-chat-thinking {
+  display: flex !important;
+  align-items: center;
+  align-self: flex-start;
+  gap: 9px;
+  padding: 8px 2px;
+  color: var(--text-secondary, #a4adb8);
+  font-size: 0.84rem;
+}
+
+.sim-chat .sim-chat-spin {
+  flex: 0 0 auto;
+  animation: sim-chat-rotate 1s linear infinite;
+}
+
+@keyframes sim-chat-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sim-chat .sim-chat-error {
+  display: flex !important;
+  flex: 0 0 auto;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 0 24px 12px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 70, 85, 0.35);
+  border-radius: 9px;
+  background: rgba(255, 70, 85, 0.06);
+  color: var(--text-secondary, #c0c7cf);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.sim-chat .sim-chat-error svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: #ff6572;
+}
+
+/* Campo de mensagem e botão enviar */
+.sim-chat .sim-chat-composer {
+  display: grid !important;
+  flex: 0 0 auto;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: 12px;
+  width: 100% !important;
+  margin: 0;
+  padding: 14px clamp(16px, 3vw, 32px) 0;
+}
+
+.sim-chat .sim-chat-composer textarea {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0;
+  min-height: 66px !important;
+  max-height: 180px;
+  margin: 0;
+  padding: 13px 15px;
+  resize: vertical;
+  border: 1px solid var(--border-color, #303943);
+  border-radius: 10px;
+  outline: none;
+  background: var(--bg-main, #101820);
+  color: var(--text-primary, #f3f4f6);
+  font: inherit;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  box-shadow: none;
+}
+
+.sim-chat .sim-chat-composer textarea:focus {
+  border-color: rgba(255, 70, 85, 0.65);
+  box-shadow: 0 0 0 3px rgba(255, 70, 85, 0.08);
+}
+
+.sim-chat .sim-chat-composer textarea::placeholder {
+  color: var(--text-secondary, #8793a0);
+  opacity: 0.9;
+}
+
+.sim-chat .sim-chat-send {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  gap: 9px;
+  min-width: 118px;
+  min-height: 66px;
+  margin: 0;
+  padding: 0 20px;
+  border: 1px solid #ff4655;
+  border-radius: 10px;
+  background: #ff4655;
+  color: #fff;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.sim-chat .sim-chat-send:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #ff5967;
+}
+
+.sim-chat .sim-chat-send:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Rodapé */
+.sim-chat .sim-chat-footer {
+  display: flex !important;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 10px clamp(16px, 3vw, 32px) 15px;
+  color: var(--text-secondary, #8f9aa6);
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+.sim-chat .sim-chat-clear {
+  display: inline-flex !important;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-secondary, #a4adb8);
+  font: inherit;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.sim-chat .sim-chat-clear:hover:not(:disabled) {
+  border-color: var(--border-color, #303943);
+  background: var(--bg-main, #101820);
+  color: var(--text-primary, #f3f4f6);
+}
+
+.sim-chat .sim-chat-clear:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* Telas menores */
+@media (max-width: 760px) {
+  .sim-chat-fullpage {
+    height: calc(100dvh - 150px);
+    min-height: 500px;
+  }
+
+  .sim-chat .sim-chat-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 13px;
+    padding: 16px;
+  }
+
+  .sim-chat .sim-chat-local-badge {
+    white-space: normal;
+  }
+
+  .sim-chat .sim-chat-thread {
+    padding: 18px 14px;
+  }
+
+  .sim-chat .sim-chat-welcome {
+    justify-content: flex-start;
+    gap: 18px;
+    padding-top: 8px;
+  }
+
+  .sim-chat .sim-chat-prompts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sim-chat .sim-chat-prompt {
+    min-height: 58px;
+  }
+
+  .sim-chat .sim-chat-message,
+  .sim-chat .sim-chat-message.assistant {
+    max-width: 100%;
+  }
+
+  .sim-chat .sim-chat-composer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 9px;
+    padding: 12px 14px 0;
+  }
+
+  .sim-chat .sim-chat-composer textarea {
+    min-height: 78px !important;
+  }
+
+  .sim-chat .sim-chat-send {
+    min-height: 46px;
+    width: 100%;
+  }
+
+  .sim-chat .sim-chat-error {
+    margin-right: 14px;
+    margin-left: 14px;
+  }
+
+  .sim-chat .sim-chat-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 14px 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sim-chat .sim-chat-thread {
+    scroll-behavior: auto;
+  }
+
+  .sim-chat .sim-chat-spin {
+    animation-duration: 2s;
+  }
+
+  .sim-chat .sim-chat-prompt,
+  .sim-chat .sim-chat-send {
+    transition: none;
+  }
+}

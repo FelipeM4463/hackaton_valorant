@@ -11,7 +11,7 @@ export const RoundSelector: React.FC<RoundSelectorProps> = ({
   currentRound,
   onSelectRound,
 }) => {
-  const rounds = Array.from({ length: totalRounds }, (_, i) => i);
+  const rounds = Array.from({ length: totalRounds }, (_, i) => i + 1);
 
   return (
     <div className="round-selector-container">
