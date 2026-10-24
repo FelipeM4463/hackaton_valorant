@@ -1,7 +1,3 @@
-
-Set-Location "C:\Users\joaoj\Downloads\hackaton_valorant-simulador-offline-etapa2\hackaton_valorant-git"
-
-$readme = @'
 # VALO ECONOMIX
 
 ### Transformando dados de VALORANT em decisões mais inteligentes.
