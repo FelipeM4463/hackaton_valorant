@@ -1,90 +1,54 @@
 import React from 'react';
-import type { DetailedRoundData, RoundData } from '../types/match';
-import { DollarSign, Skull, Shield, Crosshair, AlertOctagon } from 'lucide-react';
+import type { RoundData } from '../types/match';
+import { BarChart3, DollarSign, FileText } from 'lucide-react';
 
 interface RoundDetailViewProps {
-  general: RoundData[];
-  round: DetailedRoundData;
-  number: number;
+  round: RoundData;
+  selectedTeam: string;
 }
 
-export const RoundDetailView: React.FC<RoundDetailViewProps> = ({number, general, round }) => {
+export const RoundDetailView: React.FC<RoundDetailViewProps> = ({ round, selectedTeam }) => {
   return (
     <div className="round-detail-container">
-      {/* Resumo Superior do Round */}
-      <div className="round-summary-card">
+      <section className="round-summary-card">
         <div className="summary-badge-group">
-          <span className={`result-tag ${general[number].won ? 'victory' : 'defeat'}`}>
-            {general[number].won ? 'VITÓRIA DO ROUND' : 'DERROTA DO ROUND'}
+          <span className={`result-tag ${round.won ? 'victory' : 'defeat'}`}>
+            {round.won ? 'VITÓRIA DO ROUND' : 'DERROTA DO ROUND'}
           </span>
-          <span className="buy-tag">{general[number].buyType}</span>
+          <span className="buy-tag">{round.buyType}</span>
         </div>
+
+        <h3 style={{ marginBottom: 16 }}>Resumo real do round {round.roundNum}</h3>
 
         <div className="summary-metrics-row">
           <div className="summary-item">
-            <span className="label">Investimento Total:</span>
-            <span className="value">${general[number].totalLoadoutValue.toLocaleString()}</span>
+            <span className="label">Equipe analisada</span>
+            <span className="value">{selectedTeam}</span>
           </div>
           <div className="summary-item">
-            <span className="label">Desperdício em Mortes:</span>
-            <span className="value waste">${round.creditWasteTotal.toLocaleString()}</span>
+            <span className="label">Equipe vencedora</span>
+            <span className="value">{round.winningTeam}</span>
           </div>
           <div className="summary-item">
-            <span className="label">Spike Plantada:</span>
-            <span className="value">{round.spikePlanted ? 'Sim' : 'Não'}</span>
+            <span className="label"><DollarSign size={14} style={{ display: 'inline', verticalAlign: 'middle' }} /> Valor do equipamento</span>
+            <span className="value">${round.totalLoadoutValue.toLocaleString()}</span>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Tabela de Jogadores do Round */}
-      <div className="players-table-card">
-        <h3><Crosshair size={18} /> Equipamentos e Desempenho no Round</h3>
-        <div className="table-wrapper">
-          <table className="round-table">
-            <thead>
-              <tr>
-                <th>Agente / Jogador</th>
-                <th>Arma Comprada</th>
-                <th>Escudo</th>
-                <th>Gastos ($)</th>
-                <th>Abates</th>
-                <th>Status</th>
-                <th>Perda Est. ($)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {round.players.map((p) => (
-                <tr key={p.playerId} className={p.died ? 'row-dead' : 'row-alive'}>
-                  <td>
-                    <div className="player-cell">
-                      <span className="agent-name">{p.agent}</span>
-                      <span className="player-sub">{p.playerName}</span>
-                    </div>
-                  </td>
-                  <td>{p.weaponPurchased}</td>
-                  <td>
-                    <span className="shield-tag">
-                      <Shield size={14} /> {p.shieldPurchased}
-                    </span>
-                  </td>
-                  <td>${p.spentInRound.toLocaleString()}</td>
-                  <td>{p.kills}</td>
-                  <td>
-                    {p.died ? (
-                      <span className="status-dead"><Skull size={14} /> Morto</span>
-                    ) : (
-                      <span className="status-alive">Vivo</span>
-                    )}
-                  </td>
-                  <td className={p.unTradedDeath ? 'highlight-waste' : ''}>
-                    {p.unTradedDeath ? `$${p.spentInRound.toLocaleString()} ⚠️` : '$0'}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <section className="players-table-card">
+        <h3 style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+          <BarChart3 size={18} /> Leitura do resultado
+        </h3>
+        <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+          {round.won
+            ? `O ${selectedTeam} venceu este round com o tipo de compra classificado como ${round.buyType}.`
+            : `O ${selectedTeam} perdeu este round; o adversário (${round.winningTeam}) venceu com o estado de equipamento registrado no JSON.`}
+        </p>
+        <p style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--text-secondary)', marginTop: 12, fontSize: '0.85rem' }}>
+          <FileText size={16} /> Dados lidos do arquivo JSON local do desafio. Nenhuma estatística fictícia é gerada nesta visualização.
+        </p>
+      </section>
     </div>
   );
 };

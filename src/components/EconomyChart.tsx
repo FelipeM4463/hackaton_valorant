@@ -7,8 +7,7 @@ import {
   Tooltip,
   CartesianGrid,
   ResponsiveContainer,
-  Cell,
-  Legend
+  Cell
 } from 'recharts';
 
 interface RoundData {
@@ -39,8 +38,8 @@ export const EconomyChart: React.FC<EconomyChartProps> = ({ data }) => {
           <YAxis stroke="#9ca3af" tickFormatter={(val) => `$${val.toLocaleString()}`} />
           <Tooltip
             contentStyle={{ backgroundColor: '#1f2937', borderColor: '#374151', color: '#fff' }}
-            formatter={(value: number, name: string, item: any) => [
-              `$${value.toLocaleString()} (${item.payload.buyType})`,
+            formatter={(value, _name, item) => [
+              `$${Number(value ?? 0).toLocaleString()} (${item.payload.buyType})`,
               item.payload.won ? 'Vitória' : 'Derrota'
             ]}
             labelFormatter={(label) => `Round ${label}`}

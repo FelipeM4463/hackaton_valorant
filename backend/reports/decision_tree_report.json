@@ -1,0 +1,490 @@
+{
+  "created_at": "2026-10-23T17:32:33.486848+00:00",
+  "model": "Extra Trees",
+  "purpose": "Análise pós-partida de padrões associados a vitórias e derrotas em rounds históricos.",
+  "usage_policy": "Somente análise pós-partida; não usar para previsão ou recomendação durante partidas em andamento.",
+  "data_dir": "data",
+  "data_quality": {
+    "json_files_found": 336,
+    "valid_completed_matches": 336,
+    "duplicate_match_ids_skipped": 0,
+    "invalid_json_files": 0,
+    "invalid_schema_files": 0,
+    "incomplete_matches_skipped": 0,
+    "matches_without_rounds_skipped": 0,
+    "read_errors_sample": []
+  },
+  "preparation": {
+    "matches_used": 336,
+    "rounds_seen": 6618,
+    "rounds_used": 6618,
+    "team_perspective_examples": 13236,
+    "rounds_skipped_missing_loadout": 0,
+    "rounds_skipped_missing_winner": 0,
+    "maps_by_match": {
+      "Ascent": 86,
+      "Bonsai": 36,
+      "Canyon": 2,
+      "Foxtrot": 5,
+      "Infinity": 13,
+      "Jam": 82,
+      "Juliett": 24,
+      "Pitt": 3,
+      "Plummet": 10,
+      "Triad": 75
+    }
+  },
+  "target_definition": "target_win=1 se a equipe da perspectiva da linha venceu o round histórico; 0 caso contrário.",
+  "feature_policy": {
+    "included": [
+      "map",
+      "round_number",
+      "team_score_before",
+      "opponent_score_before",
+      "score_diff_before",
+      "team_recent_winrate_last5",
+      "team_loadout_value",
+      "opponent_loadout_value",
+      "loadout_diff",
+      "loadout_ratio",
+      "team_loadout_per_player",
+      "opponent_loadout_per_player"
+    ],
+    "excluded_to_avoid_leakage": [
+      "kills e deaths do round atual",
+      "damage e score do round atual",
+      "winningTeamRole",
+      "roundResult",
+      "placar final da partida",
+      "resultado final da equipe como feature"
+    ],
+    "note": "A análise usa apenas campos dos JSONs locais. Confirme com a documentação da organização que loadoutValue representa o equipamento disponível antes do início do round."
+  },
+  "split": {
+    "strategy": "seleção cronológica dentro do treino; teste final separado por partida inteira (partidas mais antigas para treino, partidas mais recentes para teste)",
+    "train_matches": 268,
+    "test_matches": 68,
+    "model_fit_matches": 214,
+    "validation_matches": 54,
+    "train_examples": 10382,
+    "test_examples": 2854,
+    "train_start_utc": "2026-06-06T18:08:05.136000+00:00",
+    "train_end_utc": "2026-09-18T23:43:50.416000+00:00",
+    "test_start_utc": "2026-09-19T00:40:31.634000+00:00",
+    "test_end_utc": "2026-09-27T19:16:34.227000+00:00"
+  },
+  "selected_model": {
+    "name": "Extra Trees",
+    "validation_metrics": {
+      "accuracy": 0.6623,
+      "balanced_accuracy": 0.6623,
+      "brier_score": 0.2086
+    },
+    "test_metrics": {
+      "accuracy": 0.6079,
+      "balanced_accuracy": 0.6079,
+      "brier_score": 0.2194,
+      "majority_class_baseline_accuracy": 0.5,
+      "test_win_rate": 0.5,
+      "confusion_matrix_label_order": {
+        "labels": [
+          "loss",
+          "win"
+        ],
+        "rows": "actual",
+        "columns": "predicted"
+      },
+      "confusion_matrix": [
+        [
+          861,
+          566
+        ],
+        [
+          553,
+          874
+        ]
+      ],
+      "classification_report": {
+        "loss": {
+          "precision": 0.6089108910891089,
+          "recall": 0.6033637000700771,
+          "f1-score": 0.6061246040126715,
+          "support": 1427.0
+        },
+        "win": {
+          "precision": 0.6069444444444444,
+          "recall": 0.6124737210932025,
+          "f1-score": 0.6096965469131497,
+          "support": 1427.0
+        },
+        "accuracy": 0.6079187105816398,
+        "macro avg": {
+          "precision": 0.6079276677667766,
+          "recall": 0.6079187105816398,
+          "f1-score": 0.6079105754629106,
+          "support": 2854.0
+        },
+        "weighted avg": {
+          "precision": 0.6079276677667766,
+          "recall": 0.6079187105816398,
+          "f1-score": 0.6079105754629106,
+          "support": 2854.0
+        }
+      }
+    },
+    "selection_rule": "Escolhido apenas pela validação cronológica dentro do conjunto de treino; teste final reservado para avaliação."
+  },
+  "model_comparison": [
+    {
+      "name": "Extra Trees",
+      "validation_metrics": {
+        "accuracy": 0.6623,
+        "balanced_accuracy": 0.6623,
+        "brier_score": 0.2086
+      },
+      "selected": true
+    },
+    {
+      "name": "Random Forest",
+      "validation_metrics": {
+        "accuracy": 0.6538,
+        "balanced_accuracy": 0.6538,
+        "brier_score": 0.2085
+      },
+      "selected": false
+    },
+    {
+      "name": "Árvore de decisão",
+      "validation_metrics": {
+        "accuracy": 0.6435,
+        "balanced_accuracy": 0.6435,
+        "brier_score": 0.2131
+      },
+      "selected": false
+    }
+  ],
+  "metrics": {
+    "accuracy": 0.6079,
+    "balanced_accuracy": 0.6079,
+    "brier_score": 0.2194,
+    "majority_class_baseline_accuracy": 0.5,
+    "test_win_rate": 0.5,
+    "confusion_matrix_label_order": {
+      "labels": [
+        "loss",
+        "win"
+      ],
+      "rows": "actual",
+      "columns": "predicted"
+    },
+    "confusion_matrix": [
+      [
+        861,
+        566
+      ],
+      [
+        553,
+        874
+      ]
+    ],
+    "classification_report": {
+      "loss": {
+        "precision": 0.6089108910891089,
+        "recall": 0.6033637000700771,
+        "f1-score": 0.6061246040126715,
+        "support": 1427.0
+      },
+      "win": {
+        "precision": 0.6069444444444444,
+        "recall": 0.6124737210932025,
+        "f1-score": 0.6096965469131497,
+        "support": 1427.0
+      },
+      "accuracy": 0.6079187105816398,
+      "macro avg": {
+        "precision": 0.6079276677667766,
+        "recall": 0.6079187105816398,
+        "f1-score": 0.6079105754629106,
+        "support": 2854.0
+      },
+      "weighted avg": {
+        "precision": 0.6079276677667766,
+        "recall": 0.6079187105816398,
+        "f1-score": 0.6079105754629106,
+        "support": 2854.0
+      }
+    }
+  },
+  "decision_tree_metrics": {
+    "accuracy": 0.6097,
+    "balanced_accuracy": 0.6097,
+    "brier_score": 0.2215,
+    "majority_class_baseline_accuracy": 0.5,
+    "test_win_rate": 0.5,
+    "confusion_matrix_label_order": {
+      "labels": [
+        "loss",
+        "win"
+      ],
+      "rows": "actual",
+      "columns": "predicted"
+    },
+    "confusion_matrix": [
+      [
+        793,
+        634
+      ],
+      [
+        480,
+        947
+      ]
+    ],
+    "classification_report": {
+      "loss": {
+        "precision": 0.6229379418695994,
+        "recall": 0.5557112824106517,
+        "f1-score": 0.5874074074074074,
+        "support": 1427.0
+      },
+      "win": {
+        "precision": 0.5989879822896901,
+        "recall": 0.6636299929922915,
+        "f1-score": 0.629654255319149,
+        "support": 1427.0
+      },
+      "accuracy": 0.6096706377014717,
+      "macro avg": {
+        "precision": 0.6109629620796447,
+        "recall": 0.6096706377014716,
+        "f1-score": 0.6085308313632782,
+        "support": 2854.0
+      },
+      "weighted avg": {
+        "precision": 0.6109629620796447,
+        "recall": 0.6096706377014717,
+        "f1-score": 0.6085308313632781,
+        "support": 2854.0
+      }
+    }
+  },
+  "feature_importances": [
+    {
+      "feature": "loadout_diff",
+      "importance": 0.238505
+    },
+    {
+      "feature": "loadout_ratio",
+      "importance": 0.180158
+    },
+    {
+      "feature": "team_recent_winrate_last5",
+      "importance": 0.11142
+    },
+    {
+      "feature": "opponent_loadout_per_player",
+      "importance": 0.089491
+    },
+    {
+      "feature": "team_loadout_value",
+      "importance": 0.086611
+    },
+    {
+      "feature": "team_loadout_per_player",
+      "importance": 0.076978
+    },
+    {
+      "feature": "opponent_loadout_value",
+      "importance": 0.067869
+    },
+    {
+      "feature": "score_diff_before",
+      "importance": 0.061529
+    },
+    {
+      "feature": "team_score_before",
+      "importance": 0.028589
+    },
+    {
+      "feature": "opponent_score_before",
+      "importance": 0.02715
+    },
+    {
+      "feature": "round_number",
+      "importance": 0.012076
+    },
+    {
+      "feature": "map_Ascent",
+      "importance": 0.006646
+    },
+    {
+      "feature": "map_Jam",
+      "importance": 0.00462
+    },
+    {
+      "feature": "map_Triad",
+      "importance": 0.004356
+    },
+    {
+      "feature": "map_Bonsai",
+      "importance": 0.002858
+    },
+    {
+      "feature": "map_Juliett",
+      "importance": 0.0007
+    },
+    {
+      "feature": "map_Infinity",
+      "importance": 0.000245
+    },
+    {
+      "feature": "map_Foxtrot",
+      "importance": 8.6e-05
+    },
+    {
+      "feature": "map_Plummet",
+      "importance": 8.1e-05
+    },
+    {
+      "feature": "map_Pitt",
+      "importance": 2.4e-05
+    },
+    {
+      "feature": "map_Canyon",
+      "importance": 6e-06
+    }
+  ],
+  "tree_feature_importances": [
+    {
+      "feature": "loadout_ratio",
+      "importance": 0.855218
+    },
+    {
+      "feature": "score_diff_before",
+      "importance": 0.127293
+    },
+    {
+      "feature": "team_loadout_value",
+      "importance": 0.00551
+    },
+    {
+      "feature": "team_score_before",
+      "importance": 0.004146
+    },
+    {
+      "feature": "opponent_score_before",
+      "importance": 0.004146
+    },
+    {
+      "feature": "round_number",
+      "importance": 0.002028
+    },
+    {
+      "feature": "team_loadout_per_player",
+      "importance": 0.00166
+    }
+  ],
+  "rule_patterns": {
+    "win_patterns": [
+      {
+        "kind": "win_pattern",
+        "conditions": [
+          "parcela do equipamento da equipe no total combinado > 74%",
+          "placar anterior do adversário ≤ 6"
+        ],
+        "summary": "parcela do equipamento da equipe no total combinado > 74% · placar anterior do adversário ≤ 6",
+        "support": 648,
+        "wins": 584,
+        "losses": 64,
+        "win_rate": 0.9012,
+        "confidence_label": "amostra maior"
+      },
+      {
+        "kind": "win_pattern",
+        "conditions": [
+          "58% < parcela do equipamento da equipe no total combinado ≤ 74%",
+          "equipe à frente por pelo menos 1 round(s)"
+        ],
+        "summary": "58% < parcela do equipamento da equipe no total combinado ≤ 74% · equipe à frente por pelo menos 1 round(s)",
+        "support": 798,
+        "wins": 627,
+        "losses": 171,
+        "win_rate": 0.7857,
+        "confidence_label": "amostra maior"
+      },
+      {
+        "kind": "win_pattern",
+        "conditions": [
+          "42% < parcela do equipamento da equipe no total combinado ≤ 58%",
+          "equipe à frente por pelo menos 4 round(s)"
+        ],
+        "summary": "42% < parcela do equipamento da equipe no total combinado ≤ 58% · equipe à frente por pelo menos 4 round(s)",
+        "support": 1285,
+        "wins": 810,
+        "losses": 475,
+        "win_rate": 0.6304,
+        "confidence_label": "amostra maior"
+      }
+    ],
+    "loss_patterns": [
+      {
+        "kind": "loss_pattern",
+        "conditions": [
+          "26% < parcela do equipamento da equipe no total combinado ≤ 42%",
+          "equipe empatada ou atrás",
+          "número do round ≤ 16"
+        ],
+        "summary": "26% < parcela do equipamento da equipe no total combinado ≤ 42% · equipe empatada ou atrás · número do round ≤ 16",
+        "support": 646,
+        "wins": 128,
+        "losses": 518,
+        "win_rate": 0.1981,
+        "confidence_label": "amostra maior"
+      },
+      {
+        "kind": "loss_pattern",
+        "conditions": [
+          "42% < parcela do equipamento da equipe no total combinado ≤ 58%",
+          "equipe atrás no placar"
+        ],
+        "summary": "42% < parcela do equipamento da equipe no total combinado ≤ 58% · equipe atrás no placar",
+        "support": 1285,
+        "wins": 475,
+        "losses": 810,
+        "win_rate": 0.3696,
+        "confidence_label": "amostra maior"
+      },
+      {
+        "kind": "loss_pattern",
+        "conditions": [
+          "parcela do equipamento da equipe no total combinado ≤ 26%",
+          "placar anterior da equipe ≤ 6",
+          "equipamento médio por jogador > 505"
+        ],
+        "summary": "parcela do equipamento da equipe no total combinado ≤ 26% · placar anterior da equipe ≤ 6 · equipamento médio por jogador > 505",
+        "support": 424,
+        "wins": 51,
+        "losses": 373,
+        "win_rate": 0.1203,
+        "confidence_label": "amostra maior"
+      }
+    ]
+  },
+  "tree_rules": "|--- loadout_ratio <= 0.42\n|   |--- loadout_ratio <= 0.26\n|   |   |--- team_score_before <= 6.50\n|   |   |   |--- team_loadout_per_player <= 505.00\n|   |   |   |   |--- weights: [211.00, 13.00] class: 0\n|   |   |   |--- team_loadout_per_player >  505.00\n|   |   |   |   |--- weights: [373.00, 51.00] class: 0\n|   |   |--- team_score_before >  6.50\n|   |   |   |--- team_loadout_per_player <= 745.00\n|   |   |   |   |--- weights: [65.00, 14.00] class: 0\n|   |   |   |--- team_loadout_per_player >  745.00\n|   |   |   |   |--- weights: [81.00, 25.00] class: 0\n|   |--- loadout_ratio >  0.26\n|   |   |--- score_diff_before <= -0.50\n|   |   |   |--- round_number <= 16.50\n|   |   |   |   |--- weights: [518.00, 128.00] class: 0\n|   |   |   |--- round_number >  16.50\n|   |   |   |   |--- weights: [109.00, 43.00] class: 0\n|   |   |--- score_diff_before >  -0.50\n|   |   |   |--- team_loadout_value <= 13975.00\n|   |   |   |   |--- weights: [189.00, 83.00] class: 0\n|   |   |   |--- team_loadout_value >  13975.00\n|   |   |   |   |--- weights: [45.00, 44.00] class: 0\n|--- loadout_ratio >  0.42\n|   |--- loadout_ratio <= 0.58\n|   |   |--- score_diff_before <= -0.50\n|   |   |   |--- score_diff_before <= -3.50\n|   |   |   |   |--- weights: [810.00, 475.00] class: 0\n|   |   |   |--- score_diff_before >  -3.50\n|   |   |   |   |--- weights: [766.00, 673.00] class: 0\n|   |   |--- score_diff_before >  -0.50\n|   |   |   |--- score_diff_before <= 3.50\n|   |   |   |   |--- weights: [1148.00, 1241.00] class: 1\n|   |   |   |--- score_diff_before >  3.50\n|   |   |   |   |--- weights: [475.00, 810.00] class: 1\n|   |--- loadout_ratio >  0.58\n|   |   |--- loadout_ratio <= 0.74\n|   |   |   |--- score_diff_before <= 0.50\n|   |   |   |   |--- weights: [127.00, 234.00] class: 1\n|   |   |   |--- score_diff_before >  0.50\n|   |   |   |   |--- weights: [171.00, 627.00] class: 1\n|   |   |--- loadout_ratio >  0.74\n|   |   |   |--- opponent_score_before <= 6.50\n|   |   |   |   |--- weights: [64.00, 584.00] class: 1\n|   |   |   |--- opponent_score_before >  6.50\n|   |   |   |   |--- weights: [39.00, 146.00] class: 1\n",
+  "model_settings": {
+    "decision_tree_max_depth": 4,
+    "decision_tree_min_samples_leaf": 75,
+    "tree_depth_used": 4,
+    "leaf_count": 16,
+    "random_forest_estimators": 200,
+    "extra_trees_estimators": 200,
+    "selection_metric": "balanced_accuracy; desempate por accuracy e Brier score",
+    "sklearn_version": "1.8.0"
+  },
+  "caveats": [
+    "Os resultados são retrospectivos e não orientam partidas em andamento.",
+    "A acurácia do teste final mede somente as partidas históricas reservadas e não garante desempenho futuro.",
+    "A importância de uma variável indica como o modelo a utiliza; não prova causalidade.",
+    "A qualidade da análise depende de loadoutValue e dos demais campos estarem corretamente definidos no JSON da organização.",
+    "Há poucos exemplos em alguns mapas; as conclusões por mapa podem ser instáveis."
+  ]
+}
